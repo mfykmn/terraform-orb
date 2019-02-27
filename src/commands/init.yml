@@ -1,9 +1,5 @@
 description: Execute terraform init command
 
-executor:
-  name: default
-  tag: << parameters.terraform-version >>
-
 parameters:
   path:
     description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
