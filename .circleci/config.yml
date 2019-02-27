@@ -4,11 +4,13 @@ orbs:
   orb-tools: circleci/orb-tools@8.3.0
 
 workflows:
-  test_orb:
+  lint_pack-validate_publish-dev:
     jobs:
-      - orb-tools/test-in-builds:
-          source-dir: src/
-          destination-orb-path: terraform/orb.yml
-          workspace-path: terraform/orb.yml
-          artifact-path: terraform/orb.yml
-          validate: true
+      - orb-tools/lint
+      - orb-tools/pack:
+          requires:
+            - orb-tools/lint
+      - orb-tools/publish-dev:
+          orb-name: mafuyuk/terraform
+          requires:
+            - orb-tools/pack
