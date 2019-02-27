@@ -6,11 +6,11 @@ executor:
 
 parameters:
   path:
-    description: Path to execute terraform command
+    description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
     type: string
-    default: ./
+    default: .
   terraform-version:
-    description: Terraform version
+    description: Using Terraform version.
     type: string
     default: latest
 
@@ -31,4 +31,4 @@ steps:
       name: Cache .terraform
       key: init-data-{{ .Revision }}
       paths:
-        - << parameters.path >>.terraform
+        - << parameters.path >>/.terraform

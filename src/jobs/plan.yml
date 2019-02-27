@@ -6,15 +6,15 @@ executor:
 
 parameters:
   path:
-    description: Path to execute terraform command
+    description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
     type: string
-    default: ./
+    default: .
   terraform-version:
-    description: Terraform version
+    description: Using Terraform version.
     type: string
     default: latest
   cache_plan:
-    description: Cache terraform plan result
+    description: Cache terraform plan result.
     type: boolean
     default: true
 
@@ -33,4 +33,4 @@ steps:
             name: Cache terraform plan result
             key: plan-{{ .Revision }}
             paths:
-              - << parameters.path >>plan.txt
+              - << parameters.path >>/plan.txt
