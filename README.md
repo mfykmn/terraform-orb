@@ -1,2 +1,2 @@
-# terraform-orb
-CircleCI Orbs for terraform
+# Terraform Orb
+CircleCI Orb for Terraform

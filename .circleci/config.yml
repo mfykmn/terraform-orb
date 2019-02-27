@@ -1,0 +1,14 @@
+version: 2.1
+
+orbs:
+  orb-tools: circleci/orb-tools@8.3.0
+
+workflows:
+  test_orb:
+    jobs:
+      - orb-tools/test-in-builds:
+          source-dir: src/
+          destination-orb-path: terraform/orb.yml
+          workspace-path: terraform/orb.yml
+          artifact-path: terraform/orb.yml
+          validate: true
