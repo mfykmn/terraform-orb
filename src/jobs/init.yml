@@ -1,26 +1,5 @@
 description: Execute terraform init command
 
-commands:
-  restore_plugins:
-    steps:
-      - restore_cache:
-          name: Restore terraform plugins
-          key: plugins-{{ .Branch }}
-  save_plugins:
-    steps:
-      - save_cache:
-          name: Cache terraform plugins
-          key: plugins-{{ .Branch }}
-          paths:
-            - .terraform.d/plugin-cache
-  save_init_data:
-    steps:
-      - save_cache:
-          name: Cache .terraform
-          key: init-data-{{ .Revision }}
-          paths:
-            - << parameters.path >>/.terraform
-
 executor:
   name: default
   tag: << parameters.terraform-version >>
@@ -36,11 +15,20 @@ parameters:
     default: latest
 
 steps:
-  - restore_plugins
+  - restore_cache:
+      name: Restore terraform plugins
+      key: plugins-{{ .Branch }}
   - run:
       name: Execute terraform init
       command: terraform init
       working_directory: << parameters.path >>
-  - save_plugins
-  - save_init_data:
-      path: << parameters.path >>
+  - save_cache:
+      name: Cache terraform plugins
+      key: plugins-{{ .Branch }}
+      paths:
+        - .terraform.d/plugin-cache
+  - save_cache:
+      name: Cache .terraform
+      key: init-data-{{ .Revision }}
+      paths:
+        - << parameters.path >>/.terraform
