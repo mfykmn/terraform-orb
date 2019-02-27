@@ -1,0 +1,35 @@
+description: Deploy to infrastructure with Terraform
+
+usage:
+  version: 2.1
+
+  orbs:
+    terraform: mafuyuk/terraform@dev:e9709ed
+
+  jobs:
+    plan:
+      executor: terraform/default
+      steps:
+        - checkout
+        - terraform/init
+        - terraform/plan
+    apply:
+      executor: terraform/default
+      steps:
+        - checkout
+        - terraform/apply
+
+  workflows:
+    deploy:
+      jobs:
+        # execute "terraform plan"
+        - plan
+        # check plan file
+        - hold:
+            type: approval
+            requires:
+              - plan
+        # execute "terraform apply" with plan file
+        - apply:
+            requires:
+              - hold
