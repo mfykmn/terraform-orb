@@ -1,0 +1,33 @@
+description: Execute terraform plan command
+
+executor:
+  name: default
+  tag: << parameters.terraform-version >>
+
+parameters:
+  path:
+    description: Path to execute terraform command
+    type: string
+    default: .
+  terraform-version:
+    description: Terraform version
+    type: string
+    default: latest
+  cache_plan:
+    description: Cache terraform plan result
+    type: boolean
+    default: true
+
+steps:
+  - restore_cache:
+      name: Restore .terraform
+      key: init-data-{{ .Revision }}
+  - run:
+      name: Execute terraform plan
+      command: terraform plan -out plan.txt
+      working_directory: << parameters.path >>
+  - when:
+      condition: << parameters.cache_plan >>
+      steps:
+        - save_plan:
+            path: << parameters.path >>
