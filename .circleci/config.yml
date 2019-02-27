@@ -14,3 +14,18 @@ workflows:
           orb-name: mafuyuk/terraform
           requires:
             - orb-tools/pack
+      - orb-tools/trigger-integration-workflow:
+          ssh-fingerprints: 21:be:4f:4f:b1:20:b2:29:55:c6:4c:6f:43:e9:55:48
+          requires:
+            - orb-tools/publish-dev
+          filters:
+            branches:
+              ignore: master
+      - orb-tools/trigger-integration-workflow:
+          ssh-fingerprints: 21:be:4f:4f:b1:20:b2:29:55:c6:4c:6f:43:e9:55:48
+          tag: master
+          requires:
+            - orb-tools/publish-dev
+          filters:
+            branches:
+              only: master
