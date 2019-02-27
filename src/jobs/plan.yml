@@ -29,5 +29,8 @@ steps:
   - when:
       condition: << parameters.cache_plan >>
       steps:
-        - save_plan:
-            path: << parameters.path >>
+        - save_cache:
+            name: Cache terraform plan result
+            key: plan-{{ .Revision }}
+            paths:
+              - << parameters.path >>/plan.txt
