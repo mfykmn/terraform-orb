@@ -22,8 +22,8 @@ commands:
             - << parameters.path >>/.terraform
 
 executor:
-    name: default
-    tag: << parameters.terraform-version >>
+  name: default
+  tag: << parameters.terraform-version >>
 
 parameters:
   path:
