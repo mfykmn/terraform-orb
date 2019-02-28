@@ -8,7 +8,8 @@ jobs:
       - run:
           name: Create Sample Terraform
           command: |
-            mv test/main.tf main.tf
+            mv test/aws .
       - terraform/init
       - terraform/plan
-      - terraform/apply
+      - terraform/apply:
+          use-plan: false

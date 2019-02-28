@@ -1,0 +1,49 @@
+description: Execute terraform plan job
+
+parameters:
+  path:
+    description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
+    type: string
+    default: .
+  terraform-version:
+    description: Using Terraform version.
+    type: string
+    default: latest
+  use-plan:
+    description: Using output plan file for "terraform apply".
+    type: boolean
+    default: true
+
+executor:
+  name: default
+  tag: << parameters.terraform-version >>
+
+steps:
+  - checkout
+  # Init step
+  - restore_cache:
+      name: Restore terraform plugins
+      key: plugins-{{ .Branch }}
+  - init:
+      path: << parameters.path >>
+  - save_cache:
+      name: Cache terraform plugins
+      key: plugins-{{ .Branch }}
+      paths:
+        - .terraform.d/plugin-cache
+  - save_cache:
+      name: Cache .terraform
+      key: init-data-{{ .Revision }}
+      paths:
+        - << parameters.path >>/.terraform
+  # Plan step
+  - plan:
+      path: << parameters.path >>
+  - when:
+      condition: << parameters.use-plan >>
+      steps:
+        - save_cache:
+            name: Cache terraform plan result
+            key: plan-{{ .Revision }}
+            paths:
+              - << parameters.path >>/plan.txt

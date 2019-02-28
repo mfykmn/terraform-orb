@@ -5,25 +5,15 @@ parameters:
     description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
     type: string
     default: .
-  terraform-version:
-    description: Using Terraform version.
-    type: string
-    default: latest
   use-plan:
     description: Using output plan file.
     type: boolean
     default: true
 
 steps:
-  - restore_cache:
-      name: Restore .terraform
-      key: init-data-{{ .Revision }}
   - when:
       condition: << parameters.use-plan >>
       steps:
-        - restore_cache:
-            name: Restore terraform plan result
-            key: plan-{{ .Revision }}
         - run:
             name: Execute terraform apply with plan file
             command: terraform apply -input plan.txt

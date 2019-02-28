@@ -5,26 +5,9 @@ parameters:
     description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
     type: string
     default: .
-  terraform-version:
-    description: Using Terraform version.
-    type: string
-    default: latest
 
 steps:
-  - restore_cache:
-      name: Restore terraform plugins
-      key: plugins-{{ .Branch }}
   - run:
       name: Execute terraform init
       command: terraform init
       working_directory: << parameters.path >>
-  - save_cache:
-      name: Cache terraform plugins
-      key: plugins-{{ .Branch }}
-      paths:
-        - .terraform.d/plugin-cache
-  - save_cache:
-      name: Cache .terraform
-      key: init-data-{{ .Revision }}
-      paths:
-        - << parameters.path >>/.terraform

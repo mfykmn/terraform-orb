@@ -27,7 +27,6 @@ workflows:
           requires:
             - orb-tools/lint
       - orb-tools/publish-dev:
-          context: orb-publishing
           orb-name: mafuyuk/terraform
           requires:
             - orb-tools/pack
@@ -64,7 +63,6 @@ workflows:
             - orb-tools/local-test-build:
                 test-config-location: test/test.yml
           name: test-commands-dev
-          context: orb-publishing
           filters: *integration-dev_filters
           requires:
             - pack-dev
@@ -76,7 +74,6 @@ workflows:
             - orb-tools/local-test-build:
                 test-config-location: test/test.yml
           name: test-commands-master
-          context: orb-publishing
           filters: *integration-master_filters
           requires:
             - pack-master
@@ -84,7 +81,6 @@ workflows:
       # patch, minor, or major publishing
       - orb-tools/dev-promote-prod:
           name: dev-promote-patch
-          context: orb-publishing
           orb-name: mafuyuk/terraform
           requires: *prod-deploy_requires
           filters:
@@ -95,7 +91,6 @@ workflows:
 
       - orb-tools/dev-promote-prod:
           name: dev-promote-minor
-          context: orb-publishing
           orb-name: mafuyuk/terraform
           release: minor
           requires: *prod-deploy_requires
@@ -107,7 +102,6 @@ workflows:
 
       - orb-tools/dev-promote-prod:
           name: dev-promote-major
-          context: orb-publishing
           orb-name: mafuyuk/terraform
           release: major
           requires: *prod-deploy_requires
