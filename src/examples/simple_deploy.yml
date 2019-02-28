@@ -4,7 +4,7 @@ usage:
   version: 2.1
 
   orbs:
-    terraform: mafuyuk/terraform@dev:e9709ed
+    terraform: mafuyuk/terraform@0.0.1
 
   workflows:
     deploy:
