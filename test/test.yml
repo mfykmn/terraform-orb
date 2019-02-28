@@ -1,0 +1,14 @@
+version: 2.1
+
+jobs:
+  build:
+    executor: terraform/default
+    steps:
+      - checkout
+      - run:
+          name: Create Sample Terraform
+          command: |
+            mv test/main.tf main.tf
+      - terraform/init
+      - terraform/plan
+      - terraform/apply
