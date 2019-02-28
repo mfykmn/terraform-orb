@@ -6,30 +6,17 @@ usage:
   orbs:
     terraform: mafuyuk/terraform@dev:e9709ed
 
-  jobs:
-    plan:
-      executor: terraform/default
-      steps:
-        - checkout
-        - terraform/init
-        - terraform/plan
-    apply:
-      executor: terraform/default
-      steps:
-        - checkout
-        - terraform/apply
-
   workflows:
     deploy:
       jobs:
         # execute "terraform plan"
-        - plan
+        - terraform/plan
         # check plan file
         - hold:
             type: approval
             requires:
               - plan
         # execute "terraform apply" with plan file
-        - apply:
+        - terraform/apply:
             requires:
               - hold
