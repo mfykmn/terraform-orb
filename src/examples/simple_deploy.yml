@@ -15,7 +15,7 @@ usage:
         - hold:
             type: approval
             requires:
-              - plan
+              - terraform/plan
         # execute "terraform apply" with plan file
         - terraform/apply:
             requires:
