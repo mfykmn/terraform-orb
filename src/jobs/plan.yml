@@ -15,7 +15,7 @@ parameters:
     default: true
 
 executor:
-  name: terraform/default
+  name: default
   tag: << parameters.terraform-version >>
 
 steps:
