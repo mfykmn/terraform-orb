@@ -11,4 +11,5 @@ jobs:
             mv test/main.tf main.tf
       - terraform/init
       - terraform/plan
-      - terraform/apply
+      - terraform/apply:
+          use-plan: false

@@ -1,0 +1,36 @@
+description: Execute terraform apply job
+
+parameters:
+  path:
+    description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
+    type: string
+    default: .
+  terraform-version:
+    description: Using Terraform version.
+    type: string
+    default: latest
+  use-plan:
+    description: Using output plan file for "terraform apply".
+    type: boolean
+    default: true
+
+executor:
+  name: terraform/default
+  tag: << parameters.terraform-version >>
+
+steps:
+  - checkout
+  # Init step
+  - restore_cache:
+      name: Restore .terraform
+      key: init-data-{{ .Revision }}
+  # Apply step
+  - when:
+      condition: << parameters.use-plan >>
+      steps:
+        - restore_cache:
+            name: Restore terraform plan result
+            key: plan-{{ .Revision }}
+  - apply:
+      path: << parameters.path >>
+      use-plan: << parameters.use-plan >>
