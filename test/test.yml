@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     executor:
-      name: terraform/default
+      name: terraform/aws
       tag: 0.11.11
     steps:
       - checkout
@@ -14,7 +14,7 @@ jobs:
             mv test/main.tf main.tf
             mv test/provider.tf provider.tf
             mv test/variables.tf variables.tf
-#      - terraform/init
-#      - terraform/plan
-#      - terraform/apply:
-#          use-plan: false
+      - terraform/init
+      - terraform/plan
+      - terraform/apply:
+          use-plan: false

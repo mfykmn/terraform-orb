@@ -1,0 +1,16 @@
+orbs:
+  aws-cli: circleci/aws-cli@0.1.11
+
+parameters:
+  tag:
+    description: docker image tag
+    type: string
+    default: latest
+
+executor: aws-cli/default
+
+docker:
+  - image: hashicorp/terraform:<< parameters.tag >>
+
+environment:
+  - TF_PLUGIN_CACHE_DIR: .terraform.d/plugin-cache
