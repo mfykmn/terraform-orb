@@ -27,6 +27,7 @@ workflows:
           requires:
             - orb-tools/lint
       - orb-tools/publish-dev:
+          context: orb-publishing
           orb-name: mafuyuk/terraform
           requires:
             - orb-tools/pack
