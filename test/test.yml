@@ -1,10 +1,15 @@
 version: 2.1
 
+orbs:
+  aws-cli: circleci/aws-cli@0.1.1
+
 jobs:
   build:
-    executor:
-      name: terraform/default
-      tag: 0.11.11
+    executor: aws-cli/default
+    docker:
+      - image: hashicorp/terraform
+    environment:
+      - TF_PLUGIN_CACHE_DIR: .terraform.d/plugin-cache
     steps:
       - checkout
       - run:
@@ -14,7 +19,7 @@ jobs:
             mv test/main.tf main.tf
             mv test/provider.tf provider.tf
             mv test/variables.tf variables.tf
-#      - terraform/init
-#      - terraform/plan
-#      - terraform/apply:
-#          use-plan: false
+      - terraform/init
+      - terraform/plan
+      - terraform/apply:
+          use-plan: false
