@@ -1,22 +1,25 @@
-description: Execute terraform apply job
+description: |
+  Execute terraform apply job.
 
 parameters:
   path:
-    description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
     type: string
     default: .
-  terraform-version:
-    description: Using Terraform version.
-    type: string
-    default: latest
+    description: |
+      Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
   use-plan:
-    description: Using output plan file for "terraform apply".
     type: boolean
     default: true
+    description: |
+      Using output plan file for "terraform apply".
+  executor:
+    type: executor
+    default: default
+    description: |
+      Override executor with a custom executor, for example, to choose a
+      different version tag.
 
-executor:
-  name: default
-  tag: << parameters.terraform-version >>
+executor: << parameters.executor >>
 
 steps:
   - checkout
