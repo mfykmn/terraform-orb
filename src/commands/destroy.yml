@@ -12,28 +12,11 @@ parameters:
     description: |
       Path to the directory containing your Terraform entorypoint.
       Defaults to . (working directory).
-  use-plan:
-    type: boolean
-    default: true
-    description: |
-      Using output plan file.
 
 steps:
-  - when:
-      condition: << parameters.use-plan >>
-      steps:
-        - run:
-            name: Execute terraform destroy with plan file
-            command: terraform destroy -input plan.txt
-            working_directory: << parameters.path >>
-            environment:
-              TF_WORKSPACE: << parameters.workspace >>
-  - unless:
-      condition: << parameters.use-plan >>
-      steps:
-        - run:
-            name: Execute terraform destroy
-            command: terraform destroy
-            working_directory: << parameters.path >>
-            environment:
-              TF_WORKSPACE: << parameters.workspace >>
+  - run:
+      name: Execute terraform destroy
+      command: terraform destroy
+      working_directory: << parameters.path >>
+      environment:
+        TF_WORKSPACE: << parameters.workspace >>

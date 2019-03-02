@@ -9,7 +9,7 @@ usage:
     terraform: mafuyuk/terraform@0.0.1
 
   workflows:
-    deploy:
+    destroy:
       jobs:
         # execute "terraform plan"
         - terraform/plan:
@@ -19,7 +19,7 @@ usage:
             type: approval
             requires:
               - terraform/plan
-        # execute "terraform destroy" with plan file
-        - terraform/destroy:
+        # execute "terraform plan" with plan file
+        - terraform/apply:
             requires:
               - hold
