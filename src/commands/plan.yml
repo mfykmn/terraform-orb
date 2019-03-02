@@ -7,14 +7,33 @@ parameters:
     description: |
       Select terraform workspace.
   path:
-    description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
     type: string
     default: .
+    description: |
+      Path to the directory containing your Terraform entorypoint.
+      Defaults to . (working directory).
+  is-destroy:
+    type: boolean
+    default: false
+    description: |
+      Use destroy option to plan command.
 
 steps:
-  - run:
-      name: Execute terraform plan
-      command: terraform plan -out plan.txt -input=false
-      working_directory: << parameters.path >>
-      environment:
-        TF_WORKSPACE: << parameters.workspace >>
+  - when:
+      condition: << parameters.is-destroy >>
+      steps:
+        - run:
+            name: Execute terraform plan (destroy)
+            command: terraform plan -out plan.txt -input=false -destroy
+            working_directory: << parameters.path >>
+            environment:
+              TF_WORKSPACE: << parameters.workspace >>
+  - unless:
+      condition: << parameters.is-destroy >>
+      steps:
+        - run:
+            name: Execute terraform plan
+            command: terraform plan -out plan.txt -input=false
+            working_directory: << parameters.path >>
+            environment:
+              TF_WORKSPACE: << parameters.workspace >>
