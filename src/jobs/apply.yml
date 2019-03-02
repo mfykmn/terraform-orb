@@ -4,9 +4,9 @@ description: |
 parameters:
   workspace:
     type: string
-      default: default
-      description: |
-        Select terraform workspace.
+    default: default
+    description: |
+      Select terraform workspace.
   path:
     type: string
     default: .
