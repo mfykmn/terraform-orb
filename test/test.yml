@@ -17,7 +17,7 @@ jobs:
       - run:
           name: debug
           command: |
-            echo $AWS_ACCESS_KEY_ID
+            printenv
       - run:
           name: Create Sample Terraform
           command: |
