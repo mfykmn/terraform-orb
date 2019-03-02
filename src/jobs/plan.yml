@@ -16,7 +16,12 @@ parameters:
     type: boolean
     default: true
     description: |
-      Using output plan file for "terraform apply".
+      Using output plan file for "terraform apply or destroy".
+  is-destroy:
+    type: boolean
+    default: false
+    description: |
+      Use destroy option to plan command.
   executor:
     type: executor
     default: default
@@ -49,6 +54,7 @@ steps:
   - plan:
       workspace: << parameters.workspace >>
       path: << parameters.path >>
+      is-destroy: << parameters.is-destroy >>
   - when:
       condition: << parameters.use-plan >>
       steps:
