@@ -10,10 +10,13 @@ jobs:
       - image: hashicorp/terraform
     environment:
       - TF_PLUGIN_CACHE_DIR: .terraform.d/plugin-cache
-      - AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     steps:
       - checkout
+      - run:
+          name:
+          command: |
+            export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+            export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - run:
           name: debug
           command: |
