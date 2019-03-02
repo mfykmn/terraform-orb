@@ -1,0 +1,23 @@
+description: |
+  Deploy to production with Terraform.
+
+usage:
+  version: 2.1
+
+  orbs:
+    terraform: mafuyuk/terraform@0.0.1
+
+  workflows:
+    deploy:
+      jobs:
+        # execute "terraform plan"
+        - terraform/plan
+        # check plan file
+        - hold:
+            type: approval
+            requires:
+              - terraform/plan
+        # execute "terraform apply" with plan file
+        - terraform/apply:
+            requires:
+              - hold

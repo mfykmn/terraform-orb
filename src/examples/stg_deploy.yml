@@ -1,4 +1,5 @@
-description: Deploy to infrastructure with Terraform
+description: |
+  Deploy to staging with Terraform.
 
 usage:
   version: 2.1
@@ -10,13 +11,10 @@ usage:
     deploy:
       jobs:
         # execute "terraform plan"
-        - terraform/plan
-        # check plan file
-        - hold:
-            type: approval
-            requires:
-              - terraform/plan
+        - terraform/plan:
+            workspace: stg
         # execute "terraform apply" with plan file
         - terraform/apply:
+            workspace: stg
             requires:
-              - hold
+              - terraform/plan

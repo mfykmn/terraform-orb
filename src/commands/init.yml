@@ -1,6 +1,11 @@
 description: Execute terraform init command
 
 parameters:
+  workspace:
+    type: string
+    default: default
+    description: |
+      Select terraform workspace.
   path:
     description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
     type: string
@@ -9,5 +14,7 @@ parameters:
 steps:
   - run:
       name: Execute terraform init
-      command: terraform init
+      command: terraform init -input=false
       working_directory: << parameters.path >>
+      environment:
+        TF_WORKSPACE: << parameters.workspace >>

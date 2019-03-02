@@ -2,6 +2,11 @@ description: |
   Execute terraform apply job.
 
 parameters:
+  workspace:
+    type: string
+    default: default
+    description: |
+      Select terraform workspace.
   path:
     type: string
     default: .
@@ -35,5 +40,6 @@ steps:
             name: Restore terraform plan result
             key: plan-{{ .Revision }}
   - apply:
+      workspace: << parameters.workspace >>
       path: << parameters.path >>
       use-plan: << parameters.use-plan >>
