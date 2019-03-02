@@ -2,6 +2,11 @@ description: |
   Execute terraform plan job.
 
 parameters:
+  workspace:
+    type: string
+    default: default
+    description: |
+      Select terraform workspace.
   path:
     type: string
     default: .
@@ -28,6 +33,7 @@ steps:
       name: Restore terraform plugins
       key: plugins-{{ .Branch }}
   - init:
+      workspace: << parameters.workspace >>
       path: << parameters.path >>
   - save_cache:
       name: Cache terraform plugins
@@ -41,6 +47,7 @@ steps:
         - << parameters.path >>/.terraform
   # Plan step
   - plan:
+      workspace: << parameters.workspace >>
       path: << parameters.path >>
   - when:
       condition: << parameters.use-plan >>

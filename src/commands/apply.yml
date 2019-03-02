@@ -1,14 +1,22 @@
 description: Execute terraform apply command
 
 parameters:
+  workspace:
+    type: string
+    default: default
+    description: |
+        Select terraform workspace.
   path:
-    description: Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
     type: string
     default: .
+    description: |
+      Path to the directory containing your Terraform entorypoint.
+      Defaults to . (working directory).
   use-plan:
-    description: Using output plan file.
     type: boolean
     default: true
+    description: |
+      Using output plan file.
 
 steps:
   - when:
@@ -18,6 +26,8 @@ steps:
             name: Execute terraform apply with plan file
             command: terraform apply -input plan.txt
             working_directory: << parameters.path >>
+            environment:
+              TF_WORKSPACE: << parameters.workspace >>
   - unless:
       condition: << parameters.use-plan >>
       steps:
@@ -25,3 +35,5 @@ steps:
             name: Execute terraform apply
             command: terraform apply
             working_directory: << parameters.path >>
+            environment:
+              TF_WORKSPACE: << parameters.workspace >>
