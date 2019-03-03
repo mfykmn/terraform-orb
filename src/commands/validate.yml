@@ -1,0 +1,16 @@
+description: |
+  Execute terraform validate command
+
+parameters:
+  path:
+    type: string
+    default: .
+    description: |
+      Path to the directory containing your Terraform entorypoint.
+      Defaults to . (working directory).
+
+steps:
+  - run:
+      name: Execute terraform validate
+      command: terraform validate
+      working_directory: << parameters.path >>
