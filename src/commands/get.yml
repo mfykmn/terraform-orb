@@ -1,0 +1,15 @@
+description: Execute terraform get command
+
+parameters:
+    path:
+      type: string
+      default: .
+      description: |
+        Path to the directory containing your Terraform entorypoint.
+        Defaults to . (working directory).
+
+steps:
+    - run:
+      name: Get terraform module
+      command: terraform get
+      working_directory: << parameters.path >>
