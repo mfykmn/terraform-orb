@@ -9,7 +9,7 @@ parameters:
         Defaults to . (working directory).
 
 steps:
-    - run:
+  - run:
       name: Get terraform module
       command: terraform get
       working_directory: << parameters.path >>
