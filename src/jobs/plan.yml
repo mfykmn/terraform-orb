@@ -50,6 +50,9 @@ steps:
       key: init-data-{{ .Revision }}
       paths:
         - << parameters.path >>/.terraform
+  # Validate step
+  - validate:
+      path: << parameters.path >>
   # Plan step
   - plan:
       workspace: << parameters.workspace >>

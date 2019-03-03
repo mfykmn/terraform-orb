@@ -32,6 +32,9 @@ steps:
   - restore_cache:
       name: Restore .terraform
       key: init-data-{{ .Revision }}
+  # Validate step
+  - validate:
+      path: << parameters.path >>
   # Apply step
   - when:
       condition: << parameters.use-plan >>
