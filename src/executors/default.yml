@@ -1,8 +1,9 @@
 parameters:
   tag:
-    description: docker image tag
     type: string
     default: latest
+    description: |
+      docker image tag
 
 docker:
   - image: hashicorp/terraform:<< parameters.tag >>
