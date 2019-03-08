@@ -1,0 +1,14 @@
+description: |
+  CI with Terraform.
+
+usage:
+  version: 2.1
+
+  orbs:
+    terraform: mafuyuk/terraform@0.6.1
+
+  workflows:
+    verification:
+      jobs:
+        - terraform/fmt
+        - terraform/validate
