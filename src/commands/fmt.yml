@@ -1,0 +1,15 @@
+description: |
+  Execute terraform fmt command
+
+parameters:
+  path:
+    type: string
+    default: .
+    description: |
+      Path to the directory containing your Terraform entorypoint.
+      Defaults to . (working directory).
+
+steps:
+  - run:
+      name: Check format
+      command: terraform fmt -check -diff << parameters.path >>
