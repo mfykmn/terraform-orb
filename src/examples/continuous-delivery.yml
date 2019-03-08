@@ -1,0 +1,31 @@
+description: |
+  CD with Terraform.
+
+usage:
+  version: 2.1
+
+  orbs:
+    terraform: mafuyuk/terraform@0.6.3
+
+  master_filter: &master_filter
+    branches:
+      only: master
+
+  workflows:
+    verification-and-stage:
+      jobs:
+        - terraform/fmt:
+            filters: *master_filter
+        - terraform/validate:
+            filters: *master_filter
+        - terraform/plan:
+            workspace: stg
+            requires:
+              - terraform/fmt
+              - terraform/validate
+            filters: *master_filter
+        - terraform/apply:
+            workspace: stg
+            requires:
+              - terraform/plan
+            filters: *master_filter

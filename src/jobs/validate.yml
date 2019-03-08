@@ -1,0 +1,24 @@
+description: |
+  Execute terraform validate job.
+
+parameters:
+  path:
+    type: string
+    default: .
+    description: |
+      Path to the directory containing your Terraform entorypoint. Defaults to . (working directory).
+  executor:
+    type: executor
+    default: default
+    description: |
+      Override executor with a custom executor, for example, to choose a
+      different version tag.
+
+executor: << parameters.executor >>
+
+steps:
+  - checkout
+  - get:
+      path: << parameters.path >>
+  - validate:
+      path: << parameters.path >>

@@ -1,5 +1,5 @@
 description: |
-  Execute syntax check for tf file.
+  Execute format and style check for tf file.
 
 parameters:
   path:
@@ -11,6 +11,5 @@ parameters:
 
 steps:
   - run:
-      name: Execute terraform validate
-      command: terraform validate
-      working_directory: << parameters.path >>
+      name: Check format
+      command: terraform fmt -check -diff << parameters.path >>

@@ -34,9 +34,6 @@ steps:
       key: init-data-{{ .Revision }}
   - get:
       path: << parameters.path >>
-  # Validate step
-  - validate:
-      path: << parameters.path >>
   # Apply step
   - when:
       condition: << parameters.use-plan >>

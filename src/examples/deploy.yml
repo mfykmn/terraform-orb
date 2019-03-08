@@ -1,0 +1,36 @@
+description: |
+  Deploy to production with Terraform.
+
+usage:
+  version: 2.1
+
+  orbs:
+    terraform: mafuyuk/terraform@0.6.1
+
+  release_filter: &release_filter
+    tags:
+      only: /^v[0-9](\.[0-9]){2}$/
+    branches:
+      ignore: /.*/
+
+  workflows:
+    deploy:
+      jobs:
+        - terraform/fmt:
+            filters: *release_filter
+        - terraform/validate:
+            filters: *release_filter
+        - terraform/plan:
+            requires:
+              - terraform/fmt
+              - terraform/validate
+            filters: *release_filter
+        - hold:
+            type: approval
+            requires:
+              - terraform/plan
+            filters: *release_filter
+        - terraform/apply:
+            requires:
+              - hold
+            filters: *release_filter
