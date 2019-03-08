@@ -11,15 +11,14 @@ usage:
   workflows:
     destroy:
       jobs:
-        # execute "terraform plan"
         - terraform/plan:
+            workspace: stg
             is-destroy: true
-        # check plan file
         - hold:
             type: approval
             requires:
               - terraform/plan
-        # execute "terraform plan" with plan file
         - terraform/apply:
+            workspace: stg
             requires:
               - hold
