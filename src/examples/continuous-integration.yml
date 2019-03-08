@@ -12,3 +12,14 @@ usage:
       jobs:
         - terraform/fmt
         - terraform/validate
+    nightry:
+      triggers:
+        - schedule:
+            cron: "0 1 * * *"
+            filters:
+              branches:
+                only:
+                  - master
+      jobs:
+        - terraform/fmt
+        - terraform/validate
