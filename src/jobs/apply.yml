@@ -28,20 +28,18 @@ executor: << parameters.executor >>
 
 steps:
   - checkout
-  # Init step
   - restore_cache:
       name: Restore .terraform
       key: init-data-{{ .Revision }}
   - get:
       path: << parameters.path >>
-  # Apply step
   - when:
       condition: << parameters.use-plan >>
       steps:
-        - restore_cache:
-            name: Restore terraform plan result
-            key: plan-{{ .Revision }}
+        - attach_workspace:
+            at: /tmp/tfplan
   - apply:
       workspace: << parameters.workspace >>
       path: << parameters.path >>
       use-plan: << parameters.use-plan >>
+      input: /tmp/tfplan

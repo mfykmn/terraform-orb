@@ -52,16 +52,15 @@ steps:
         - << parameters.path >>/.terraform
   - get:
       path: << parameters.path >>
-  # Plan step
   - plan:
       workspace: << parameters.workspace >>
       path: << parameters.path >>
+      out: /tmp/tfplan
       is-destroy: << parameters.is-destroy >>
   - when:
       condition: << parameters.use-plan >>
       steps:
-        - save_cache:
-            name: Cache terraform plan result
-            key: plan-{{ .Revision }}
+        - persist_to_workspace:
+            root: /tmp
             paths:
-              - << parameters.path >>/plan.txt
+              - tfplan
