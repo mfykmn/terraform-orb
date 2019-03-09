@@ -13,6 +13,11 @@ parameters:
     description: |
       Path to the directory containing your Terraform entorypoint.
       Defaults to . (working directory).
+  out:
+    type: string
+    default: ./tfplan
+    description: |
+      Path to the tfplan output.
   is-destroy:
     type: boolean
     default: false
@@ -25,7 +30,7 @@ steps:
       steps:
         - run:
             name: Execute terraform plan (destroy)
-            command: terraform plan -out plan.txt -input=false -destroy
+            command: terraform plan -out << parameters.out >> -input=false -destroy
             working_directory: << parameters.path >>
             environment:
               TF_WORKSPACE: << parameters.workspace >>
@@ -34,7 +39,7 @@ steps:
       steps:
         - run:
             name: Execute terraform plan
-            command: terraform plan -out plan.txt -input=false
+            command: terraform plan -out << parameters.out >> -input=false
             working_directory: << parameters.path >>
             environment:
               TF_WORKSPACE: << parameters.workspace >>
