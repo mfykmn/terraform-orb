@@ -2,6 +2,11 @@ description: |
   Execute terraform init job.
 
 parameters:
+  workspace:
+    type: string
+    default: default
+    description: |
+      Select terraform workspace.
   path:
     type: string
     default: .
