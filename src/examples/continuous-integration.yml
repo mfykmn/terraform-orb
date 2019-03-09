@@ -10,8 +10,13 @@ usage:
   workflows:
     verification:
       jobs:
-        - terraform/fmt
-        - terraform/validate
+        - terraform/init
+        - terraform/fmt:
+            requires:
+              - terraform/init
+        - terraform/validate:
+            requires:
+              - terraform/init
     nightry:
       triggers:
         - schedule:
@@ -21,5 +26,10 @@ usage:
                 only:
                   - master
       jobs:
-        - terraform/fmt
-        - terraform/validate
+        - terraform/init
+        - terraform/fmt:
+            requires:
+              - terraform/init
+        - terraform/validate:
+            requires:
+              - terraform/init

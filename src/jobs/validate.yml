@@ -18,7 +18,7 @@ executor: << parameters.executor >>
 
 steps:
   - checkout
-  - get:
-      path: << parameters.path >>
+  - attach_workspace:
+      at: << parameters.path >>
   - validate:
       path: << parameters.path >>

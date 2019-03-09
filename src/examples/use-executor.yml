@@ -1,0 +1,18 @@
+description: |
+  Use Executor
+
+usage:
+  version: 2.1
+
+  orbs:
+    terraform: mafuyuk/terraform@0.6.1
+
+  terraform_executor: &terraform_executor
+    name: terraform/default
+    tag: 0.11.11
+
+  workflows:
+    demo:
+      jobs:
+        - terraform/init:
+            executor: *terraform_executor

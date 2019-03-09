@@ -18,6 +18,11 @@ parameters:
     default: true
     description: |
       Using output plan file.
+  input:
+    type: string
+    default: ./tfplan
+    description: |
+      Path to the tfplan input.
 
 steps:
   - when:
@@ -25,7 +30,7 @@ steps:
       steps:
         - run:
             name: Execute terraform apply with plan file
-            command: terraform apply -input plan.txt
+            command: terraform apply -input << parameters.input >>
             working_directory: << parameters.path >>
             environment:
               TF_WORKSPACE: << parameters.workspace >>

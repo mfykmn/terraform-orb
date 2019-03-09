@@ -33,35 +33,17 @@ executor: << parameters.executor >>
 
 steps:
   - checkout
-  # Init step
-  - restore_cache:
-      name: Restore terraform plugins
-      key: plugins-{{ .Branch }}
-  - init:
-      workspace: << parameters.workspace >>
-      path: << parameters.path >>
-  - save_cache:
-      name: Cache terraform plugins
-      key: plugins-{{ .Branch }}
-      paths:
-        - .terraform.d/plugin-cache
-  - save_cache:
-      name: Cache .terraform
-      key: init-data-{{ .Revision }}
-      paths:
-        - << parameters.path >>/.terraform
-  - get:
-      path: << parameters.path >>
-  # Plan step
+  - attach_workspace:
+      at: << parameters.path >>
   - plan:
       workspace: << parameters.workspace >>
       path: << parameters.path >>
+      out: /tmp/tfplan
       is-destroy: << parameters.is-destroy >>
   - when:
       condition: << parameters.use-plan >>
       steps:
-        - save_cache:
-            name: Cache terraform plan result
-            key: plan-{{ .Revision }}
+        - persist_to_workspace:
+            root: /tmp
             paths:
-              - << parameters.path >>/plan.txt
+              - tfplan

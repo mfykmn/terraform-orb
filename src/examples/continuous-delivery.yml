@@ -14,9 +14,16 @@ usage:
   workflows:
     verification-and-stage:
       jobs:
+        - terraform/init:
+            workspace: stg
+            filters: *master_filter
         - terraform/fmt:
+            requires:
+              - terraform/init
             filters: *master_filter
         - terraform/validate:
+            requires:
+              - terraform/init
             filters: *master_filter
         - terraform/plan:
             workspace: stg
