@@ -11,7 +11,8 @@ usage:
   workflows:
     destroy:
       jobs:
-        - terraform/init
+        - terraform/init:
+            workspace: stg
         - terraform/plan:
             workspace: stg
             is-destroy: true

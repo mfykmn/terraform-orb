@@ -15,6 +15,7 @@ usage:
     verification-and-stage:
       jobs:
         - terraform/init:
+            workspace: stg
             filters: *master_filter
         - terraform/fmt:
             requires:
