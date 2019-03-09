@@ -16,9 +16,15 @@ usage:
   workflows:
     deploy:
       jobs:
+        - terraform/init:
+            filters: *release_filter
         - terraform/fmt:
+            requires:
+              - terraform/init
             filters: *release_filter
         - terraform/validate:
+            requires:
+              - terraform/init
             filters: *release_filter
         - terraform/plan:
             requires:

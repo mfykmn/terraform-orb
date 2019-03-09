@@ -11,9 +11,12 @@ usage:
   workflows:
     destroy:
       jobs:
+        - terraform/init
         - terraform/plan:
             workspace: stg
             is-destroy: true
+            requires:
+              - terraform/init
         - hold:
             type: approval
             requires:
