@@ -1,5 +1,5 @@
 description: |
-  Execute terraform validate job.
+  Execute terraform init job.
 
 parameters:
   path:
@@ -18,7 +18,20 @@ executor: << parameters.executor >>
 
 steps:
   - checkout
-  - attach_workspace:
-      at: << parameters.path >>
-  - validate:
+  - restore_cache:
+      name: Restore terraform plugins
+      key: plugins-{{ .Branch }}
+  - init:
+      workspace: << parameters.workspace >>
       path: << parameters.path >>
+  - save_cache:
+      name: Cache terraform plugins
+      key: plugins-{{ .Branch }}
+      paths:
+        - .terraform.d/plugin-cache
+  - get:
+      path: << parameters.path >>
+  - persist_to_workspace:
+      root: << parameters.path >>
+      paths:
+        - .terraform

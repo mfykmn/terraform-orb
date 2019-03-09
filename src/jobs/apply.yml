@@ -28,11 +28,8 @@ executor: << parameters.executor >>
 
 steps:
   - checkout
-  - restore_cache:
-      name: Restore .terraform
-      key: init-data-{{ .Revision }}
-  - get:
-      path: << parameters.path >>
+  - attach_workspace:
+      at: << parameters.path >>
   - when:
       condition: << parameters.use-plan >>
       steps:

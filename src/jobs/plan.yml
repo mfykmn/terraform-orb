@@ -33,25 +33,8 @@ executor: << parameters.executor >>
 
 steps:
   - checkout
-  # Init step
-  - restore_cache:
-      name: Restore terraform plugins
-      key: plugins-{{ .Branch }}
-  - init:
-      workspace: << parameters.workspace >>
-      path: << parameters.path >>
-  - save_cache:
-      name: Cache terraform plugins
-      key: plugins-{{ .Branch }}
-      paths:
-        - .terraform.d/plugin-cache
-  - save_cache:
-      name: Cache .terraform
-      key: init-data-{{ .Revision }}
-      paths:
-        - << parameters.path >>/.terraform
-  - get:
-      path: << parameters.path >>
+  - attach_workspace:
+      at: << parameters.path >>
   - plan:
       workspace: << parameters.workspace >>
       path: << parameters.path >>
