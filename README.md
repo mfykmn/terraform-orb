@@ -1,4 +1,4 @@
-# Terraform Orb [![CircleCI](https://circleci.com/gh/mafuyuk/terraform-orb.svg?style=svg)](https://circleci.com/gh/mafuyuk/terraform-orb)[![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/mafuyuk/terraform)](https://circleci.com/orbs/registry/orb/mafuyuk/terraform)
+# Terraform Orb [![CircleCI](https://circleci.com/gh/mafuyuk/terraform-orb.svg?style=shield)](https://circleci.com/gh/mafuyuk/terraform-orb)[![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/mafuyuk/terraform)](https://circleci.com/orbs/registry/orb/mafuyuk/terraform)
 Tools for working with Terraform on CircleCI.
 
 ## Usage
