@@ -5,7 +5,7 @@ usage:
   version: 2.1
 
   orbs:
-    terraform: mafuyuk/terraform@0.6.1
+    terraform: mafuyuk/terraform@1.0.0
 
   workflows:
     verification:
@@ -20,7 +20,7 @@ usage:
     nightry:
       triggers:
         - schedule:
-            cron: "0 1 * * *"
+            cron: "0 0 * * *"
             filters:
               branches:
                 only:

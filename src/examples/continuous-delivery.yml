@@ -5,7 +5,7 @@ usage:
   version: 2.1
 
   orbs:
-    terraform: mafuyuk/terraform@0.6.3
+    terraform: mafuyuk/terraform@1.0.0
 
   master_filter: &master_filter
     branches:
