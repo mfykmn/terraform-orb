@@ -34,7 +34,7 @@ steps:
       condition: << parameters.use-plan >>
       steps:
         - attach_workspace:
-            at: /tmp/tfplan
+            at: /tmp
   - apply:
       workspace: << parameters.workspace >>
       path: << parameters.path >>
