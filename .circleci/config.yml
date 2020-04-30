@@ -31,14 +31,14 @@ workflows:
           requires:
             - orb-tools/pack
       - orb-tools/trigger-integration-workflow:
-          ssh-fingerprints: 31:2d:b7:ba:4c:d1:70:45:24:09:b1:4d:2e:5d:12:b4
+          ssh-fingerprints: 3c:d9:23:8b:5e:4a:54:82:25:04:62:c2:be:36:a7:5f
           requires:
             - orb-tools/publish-dev
           filters:
             branches:
               ignore: master
       - orb-tools/trigger-integration-workflow:
-          ssh-fingerprints: 31:2d:b7:ba:4c:d1:70:45:24:09:b1:4d:2e:5d:12:b4
+          ssh-fingerprints: 3c:d9:23:8b:5e:4a:54:82:25:04:62:c2:be:36:a7:5f
           tag: master
           requires:
             - orb-tools/publish-dev
