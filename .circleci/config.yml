@@ -27,7 +27,7 @@ workflows:
           requires:
             - orb-tools/lint
       - orb-tools/publish-dev:
-          orb-name: mafuyuk/terraform
+          orb-name: mfykmn/terraform
           requires:
             - orb-tools/pack
       - orb-tools/trigger-integration-workflow:
@@ -81,7 +81,7 @@ workflows:
       # patch, minor, or major publishing
       - orb-tools/dev-promote-prod:
           name: dev-promote-patch
-          orb-name: mafuyuk/terraform
+          orb-name: mfykmn/terraform
           requires: *prod-deploy_requires
           filters:
             branches:
@@ -91,7 +91,7 @@ workflows:
 
       - orb-tools/dev-promote-prod:
           name: dev-promote-minor
-          orb-name: mafuyuk/terraform
+          orb-name: mfykmn/terraform
           release: minor
           requires: *prod-deploy_requires
           filters:
@@ -102,7 +102,7 @@ workflows:
 
       - orb-tools/dev-promote-prod:
           name: dev-promote-major
-          orb-name: mafuyuk/terraform
+          orb-name: mfykmn/terraform
           release: major
           requires: *prod-deploy_requires
           filters:

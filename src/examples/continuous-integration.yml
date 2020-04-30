@@ -5,7 +5,7 @@ usage:
   version: 2.1
 
   orbs:
-    terraform: mafuyuk/terraform@1.0.0
+    terraform: mfykmn/terraform@1.0.0
 
   workflows:
     verification:
