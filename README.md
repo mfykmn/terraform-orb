@@ -2,9 +2,7 @@
 Tools for working with Terraform on CircleCI.
 
 ## Usage
-
 See the [orb registry listing](http://circleci.com/orbs/registry/orb/mfykmn/terraform) for usage guidelines.
 
 ## Contributing
-
 We welcome [issues](https://github.com/mfykmn/terraform-orb/issues) to and [pull requests](https://github.com/mfykmn/terraform-orb/pulls) against this repository!
