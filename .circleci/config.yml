@@ -27,18 +27,18 @@ workflows:
           requires:
             - orb-tools/lint
       - orb-tools/publish-dev:
-          orb-name: mafuyuk/terraform
+          orb-name: mfykmn/terraform
           requires:
             - orb-tools/pack
       - orb-tools/trigger-integration-workflow:
-          ssh-fingerprints: 31:2d:b7:ba:4c:d1:70:45:24:09:b1:4d:2e:5d:12:b4
+          ssh-fingerprints: 5e:b7:99:20:2a:5b:3e:0b:7d:59:21:0a:20:b2:91:47
           requires:
             - orb-tools/publish-dev
           filters:
             branches:
               ignore: master
       - orb-tools/trigger-integration-workflow:
-          ssh-fingerprints: 31:2d:b7:ba:4c:d1:70:45:24:09:b1:4d:2e:5d:12:b4
+          ssh-fingerprints: 5e:b7:99:20:2a:5b:3e:0b:7d:59:21:0a:20:b2:91:47
           tag: master
           requires:
             - orb-tools/publish-dev
@@ -81,7 +81,7 @@ workflows:
       # patch, minor, or major publishing
       - orb-tools/dev-promote-prod:
           name: dev-promote-patch
-          orb-name: mafuyuk/terraform
+          orb-name: mfykmn/terraform
           requires: *prod-deploy_requires
           filters:
             branches:
@@ -91,7 +91,7 @@ workflows:
 
       - orb-tools/dev-promote-prod:
           name: dev-promote-minor
-          orb-name: mafuyuk/terraform
+          orb-name: mfykmn/terraform
           release: minor
           requires: *prod-deploy_requires
           filters:
@@ -102,7 +102,7 @@ workflows:
 
       - orb-tools/dev-promote-prod:
           name: dev-promote-major
-          orb-name: mafuyuk/terraform
+          orb-name: mfykmn/terraform
           release: major
           requires: *prod-deploy_requires
           filters:
